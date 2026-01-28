@@ -68,10 +68,6 @@ app.innerHTML = `
           </div>
         </div>
 
-        <div class="acc-viewcube">
-          <div class="cube-label">TOP</div>
-          <div class="cube-face">RIGHT</div>
-        </div>
       </div>
 
       <div class="acc-toolbar">
@@ -129,6 +125,7 @@ world.camera.controls.zoomSpeed = 2.0;
 
 await world.camera.controls.setLookAt(18, 12, 18, 0, 0, 0);
 components.init();
+
 
 const resizeViewer = () => {
   world.renderer.resize();
