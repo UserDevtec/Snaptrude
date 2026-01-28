@@ -29,12 +29,11 @@ a {
 }
 
 .app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
 .hero {
@@ -43,6 +42,18 @@ a {
   gap: 24px;
   align-items: flex-end;
   justify-content: space-between;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 40;
+  pointer-events: none;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(207, 211, 223, 0.8);
+  box-shadow: 0 16px 32px rgba(31, 39, 54, 0.16);
+  backdrop-filter: blur(12px);
 }
 
 .eyebrow {
@@ -70,6 +81,7 @@ a {
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
+  pointer-events: auto;
 }
 
 .primary,
@@ -81,6 +93,7 @@ a {
   font-size: 0.95rem;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  pointer-events: auto;
 }
 
 .primary {
@@ -107,11 +120,13 @@ a {
 }
 
 .panel {
-  background: rgba(255, 255, 255, 0.78);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(31, 39, 54, 0.08);
-  backdrop-filter: blur(12px);
+  position: fixed;
+  inset: 0;
+  padding: 120px 20px 20px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .panel-header {
@@ -121,6 +136,7 @@ a {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
+  display: none;
 }
 
 .viewer-title {
@@ -264,6 +280,7 @@ a {
   overflow: hidden;
   border: 1px solid #d7dbe6;
   background: linear-gradient(135deg, rgba(250, 248, 244, 0.9), rgba(236, 241, 248, 0.85));
+  height: 100%;
 }
 
 .viewer-wrap.dragging {
@@ -273,14 +290,14 @@ a {
 
 .viewer-wrap.fullscreen {
   position: fixed;
-  inset: 24px;
+  inset: 0;
   z-index: 120;
-  border-radius: 24px;
+  border-radius: 0;
 }
 
 .viewer {
   width: 100%;
-  height: min(64vh, 720px);
+  height: 100%;
 }
 
 .viewer-wrap.fullscreen .viewer {
