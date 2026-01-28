@@ -4,39 +4,52 @@ import * as OBC from "@thatopen/components";
 const app = document.querySelector("#app");
 
 app.innerHTML = `
-  <div class="app">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">IFCVIEWER LAB</p>
-        <h1>IFC & Fragment Viewer</h1>
-        <p class="subtitle">
-          Laad een .ifc of .frag bestand. Grote IFC's worden automatisch
-          op de achtergrond omgezet naar fragments voor snelle weergave.
-        </p>
-      </div>
-      <div class="actions">
-        <button class="ghost" id="resetBtn" type="button">Reset view</button>
-        <button class="primary" id="downloadBtn" type="button" disabled>
-          Download .frag
+  <div class="acc-app">
+    <header class="acc-topbar">
+      <div class="topbar-left">
+        <button class="topbar-pill" type="button">
+          Viewing 2 models (Unsaved View)
+          <span class="caret">▾</span>
         </button>
+        <button class="topbar-action" type="button">Save view</button>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-action" type="button">Save to Docs</button>
+        <button class="topbar-icon" type="button" aria-label="Close">✕</button>
       </div>
     </header>
 
-    <section class="panel">
-      <div class="panel-header">
-        <div class="viewer-title">
-          <h2>Viewer</h2>
-          <button class="ghost expand-inline" id="expandBtn" type="button" aria-label="Expand">
-            <svg class="expand-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <polyline points="9 21 3 21 3 15"></polyline>
-              <line x1="21" y1="3" x2="14" y2="10"></line>
-              <line x1="3" y1="21" x2="10" y2="14"></line>
-            </svg>
-          </button>
-        </div>
-        <span class="hint">Sleep om te draaien, scroll om te zoomen</span>
+    <aside class="acc-nav">
+      <button class="nav-btn active" type="button" title="Models">⬛</button>
+      <button class="nav-btn" type="button" title="Views">◧</button>
+      <button class="nav-btn" type="button" title="Issues">●</button>
+      <button class="nav-btn" type="button" title="Sheets">▦</button>
+      <button class="nav-btn" type="button" title="Settings">⚙</button>
+    </aside>
+
+    <aside class="acc-left-panel">
+      <div class="panel-tabs">
+        <button class="tab active" type="button">Models</button>
+        <button class="tab" type="button">Transform</button>
       </div>
+      <div class="panel-content">
+        <div class="panel-list">
+          <div class="panel-item">
+            <div class="item-title">Snowdon Towers Sample Architectural.rvt</div>
+            <div class="item-sub">9 Nov 2023 13:54</div>
+          </div>
+          <div class="panel-item">
+            <div class="item-title">Snowdon Towers Sample Electrical.rvt</div>
+            <div class="item-sub">9 Nov 2023 13:53</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button class="panel-primary" type="button">Select models</button>
+      </div>
+    </aside>
+
+    <main class="acc-stage">
       <div class="viewer-wrap" id="viewerWrap">
         <div id="viewer" class="viewer"></div>
         <div id="viewerOverlay" class="viewer-overlay idle">
@@ -54,51 +67,32 @@ app.innerHTML = `
             <span id="overlayText">Bezig met laden...</span>
           </div>
         </div>
-      </div>
-    </section>
-    <div class="fullscreen-overlay" id="fullscreenOverlay">
-      <button class="ghost fullscreen-close" id="closeFullscreen" type="button">Sluiten</button>
-    </div>
-    <div class="tutorial-fab-wrap" id="helpFab">
-      <button class="tutorial-fab" type="button" id="helpToggle">?</button>
-      <span class="tutorial-fab-label">Support? Jonathan van der Gouwe</span>
-    </div>
-    <div class="tutorial-overlay hidden" id="helpOverlay">
-      <button class="tutorial-close ghost" type="button" id="helpClose">Sluiten</button>
-      <div class="tutorial-stage" id="helpStage">
-        <div class="tutorial-item" data-target="viewerWrap">
-          <div class="tutorial-spot"></div>
-          <div class="tutorial-card">
-            <h4>Viewer</h4>
-            <p>Sleep om te draaien, scroll om te zoomen. Gebruik de overlay om een bestand te laden.</p>
-          </div>
-        </div>
-        <div class="tutorial-item" data-target="expandBtn">
-          <div class="tutorial-spot"></div>
-          <div class="tutorial-card">
-            <h4>Expand</h4>
-            <p>Open de viewer fullscreen voor een groter canvas.</p>
-          </div>
+
+        <div class="acc-viewcube">
+          <div class="cube-label">TOP</div>
+          <div class="cube-face">RIGHT</div>
         </div>
       </div>
-    </div>
+
+      <div class="acc-toolbar">
+        <button class="tool active" type="button" title="Orbit">⟳</button>
+        <button class="tool" type="button" title="Pan">✋</button>
+        <button class="tool" type="button" title="Zoom">🔍</button>
+        <button class="tool" type="button" title="Fit">⛶</button>
+        <button class="tool" type="button" title="Section">▯</button>
+        <button class="tool" type="button" title="Measure">📏</button>
+        <button class="tool" type="button" title="Settings">⚙</button>
+      </div>
+    </main>
+
+    
   </div>
 `;
 
 const elements = {
   fileInput: document.getElementById("fileInput"),
   statusText: document.getElementById("statusText"),
-  downloadBtn: document.getElementById("downloadBtn"),
-  resetBtn: document.getElementById("resetBtn"),
-  expandBtn: document.getElementById("expandBtn"),
-  closeFullscreen: document.getElementById("closeFullscreen"),
-  fullscreenOverlay: document.getElementById("fullscreenOverlay"),
   viewerWrap: document.getElementById("viewerWrap"),
-  helpFab: document.getElementById("helpFab"),
-  helpToggle: document.getElementById("helpToggle"),
-  helpOverlay: document.getElementById("helpOverlay"),
-  helpClose: document.getElementById("helpClose"),
-  helpStage: document.getElementById("helpStage"),
   overlay: document.getElementById("viewerOverlay"),
   overlayText: document.getElementById("overlayText"),
   viewer: document.getElementById("viewer")
@@ -178,10 +172,6 @@ const setStatus = (text) => {
   elements.statusText.textContent = text;
 };
 
-const updateStats = () => {
-  elements.downloadBtn.disabled = !state.fragBuffer;
-};
-
 const clearModels = async () => {
   for (const [id, model] of fragments.list) {
     world.scene.three.remove(model.object);
@@ -189,7 +179,6 @@ const clearModels = async () => {
   }
   state.fragBuffer = null;
   state.downloadName = "model.frag";
-  updateStats();
 };
 
 const ensureIfcLoader = async () => {
@@ -238,8 +227,6 @@ const loadIfcFile = async (file) => {
 
   const model = await ifcLoader.load(buffer, true, modelId);
 
-  updateStats();
-
   setStatus("IFC geladen. Converteren naar fragments op de achtergrond...");
   setOverlay("Converteer IFC naar fragments...", true, true);
 
@@ -251,8 +238,6 @@ const loadIfcFile = async (file) => {
   await fragments.core.disposeModel(modelId);
 
   await loadFragBuffer(fragBuffer, "ifc-frag");
-
-  updateStats();
   setStatus("IFC omgezet naar fragments en geladen.");
   setOverlay("", false, false);
 };
@@ -274,26 +259,6 @@ const handleFile = async (file) => {
     setStatus("Er ging iets mis bij het laden van het bestand.");
     setOverlay("Laden mislukt", false, true);
   }
-};
-
-const downloadFrag = () => {
-  if (!state.fragBuffer) return;
-
-  const blob = new Blob([state.fragBuffer], {
-    type: "application/octet-stream"
-  });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = state.downloadName;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-};
-
-const resetView = () => {
-  world.camera.controls.setLookAt(18, 12, 18, 0, 0, 0, true);
 };
 
 const setupDropzone = () => {
@@ -324,77 +289,6 @@ const setupDropzone = () => {
   viewerWrap.addEventListener("drop", onDrop);
 };
 
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-const updateHelpLayout = () => {
-  const items = elements.helpStage.querySelectorAll(".tutorial-item");
-  items.forEach((item) => {
-    const targetId = item.dataset.target;
-    const target = elements[targetId];
-    const spot = item.querySelector(".tutorial-spot");
-    const card = item.querySelector(".tutorial-card");
-    if (!target || !spot || !card) return;
-
-    const rect = target.getBoundingClientRect();
-    spot.style.left = `${rect.left}px`;
-    spot.style.top = `${rect.top}px`;
-    spot.style.width = `${rect.width}px`;
-    spot.style.height = `${rect.height}px`;
-
-    const cardRect = card.getBoundingClientRect();
-    const gap = 16;
-    let left = rect.right + gap;
-    let top = rect.top + Math.min(24, rect.height / 2);
-
-    if (left + cardRect.width > window.innerWidth - gap) {
-      left = rect.left - cardRect.width - gap;
-    }
-
-    left = clamp(left, gap, window.innerWidth - cardRect.width - gap);
-    top = clamp(top, gap, window.innerHeight - cardRect.height - gap);
-
-    card.style.left = `${left}px`;
-    card.style.top = `${top}px`;
-  });
-};
-
-const syncFullscreenState = () => {
-  const isFullscreen = document.fullscreenElement === elements.viewerWrap;
-  elements.viewerWrap.classList.toggle("fullscreen", isFullscreen);
-  elements.fullscreenOverlay.classList.toggle("active", isFullscreen);
-  elements.expandBtn.classList.toggle("hidden", isFullscreen);
-  document.body.style.overflow = isFullscreen ? "hidden" : "";
-  resizeViewer();
-};
-
-const setFullscreen = async (enabled) => {
-  if (enabled && elements.viewerWrap.requestFullscreen) {
-    try {
-      await elements.viewerWrap.requestFullscreen();
-      syncFullscreenState();
-      return;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  if (!enabled && document.exitFullscreen) {
-    try {
-      await document.exitFullscreen();
-      syncFullscreenState();
-      return;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  elements.viewerWrap.classList.toggle("fullscreen", enabled);
-  elements.fullscreenOverlay.classList.toggle("active", enabled);
-  elements.expandBtn.classList.toggle("hidden", enabled);
-  document.body.style.overflow = enabled ? "hidden" : "";
-  resizeViewer();
-};
-
 setupDropzone();
 
 elements.fileInput.addEventListener("change", (event) => {
@@ -402,52 +296,7 @@ elements.fileInput.addEventListener("change", (event) => {
   handleFile(file);
 });
 
-elements.downloadBtn.addEventListener("click", downloadFrag);
-elements.resetBtn.addEventListener("click", resetView);
-elements.expandBtn.addEventListener("click", () => setFullscreen(true));
-elements.closeFullscreen.addEventListener("click", () => setFullscreen(false));
-elements.fullscreenOverlay.addEventListener("click", (event) => {
-  if (event.target === elements.fullscreenOverlay) {
-    setFullscreen(false);
-  }
-});
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    setFullscreen(false);
-  }
-});
-document.addEventListener("fullscreenchange", syncFullscreenState);
 window.addEventListener("resize", resizeViewer);
 
-const toggleHelp = (open) => {
-  const next = typeof open === "boolean" ? open : elements.helpOverlay.classList.contains("hidden");
-  elements.helpOverlay.classList.toggle("hidden", !next);
-  elements.helpFab.classList.toggle("open", next);
-  if (next) {
-    updateHelpLayout();
-  }
-};
-
-elements.helpToggle.addEventListener("click", () => toggleHelp());
-elements.helpClose.addEventListener("click", (event) => {
-  event.stopPropagation();
-  toggleHelp(false);
-});
-elements.helpOverlay.addEventListener("click", () => toggleHelp(false));
-window.addEventListener("resize", () => {
-  if (!elements.helpOverlay.classList.contains("hidden")) {
-    updateHelpLayout();
-  }
-});
-window.addEventListener(
-  "scroll",
-  () => {
-    if (!elements.helpOverlay.classList.contains("hidden")) {
-      updateHelpLayout();
-    }
-  },
-  true
-);
-
 setOverlay("Upload bestand of selecteer bestand", false, true);
-updateStats();
+
