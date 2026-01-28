@@ -23,6 +23,10 @@ body {
   background: radial-gradient(circle at top left, #f8efe5 0%, #f0eee9 40%, #e9edf2 100%);
 }
 
+#app {
+  height: 100vh;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -127,6 +131,8 @@ a {
   border: none;
   box-shadow: none;
   backdrop-filter: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-header {
@@ -281,6 +287,7 @@ a {
   border: 1px solid #d7dbe6;
   background: linear-gradient(135deg, rgba(250, 248, 244, 0.9), rgba(236, 241, 248, 0.85));
   height: 100%;
+  flex: 1;
 }
 
 .viewer-wrap.dragging {
@@ -525,7 +532,7 @@ a {
 
 @media (max-width: 720px) {
   .panel {
-    padding: 20px;
+    padding: 140px 16px 16px;
   }
 
   .actions {
@@ -534,6 +541,6 @@ a {
   }
 
   .viewer {
-    height: 52vh;
+    height: 100%;
   }
 }
