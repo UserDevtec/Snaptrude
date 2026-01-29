@@ -1,5 +1,8 @@
 # IFC Viewer (ACC-style)
 
+https://github.com/user-attachments/assets/f4625cfe-a6c2-4e86-b253-ae0d74944c9b
+
+
 Dit project is een lichte IFC/.frag viewer in de browser, opgezet met Vite en That Open Engine.
 De UI is geïnspireerd op de Autodesk Construction Cloud (ACC) viewer: topbar, linker navigatie,
 models‑paneel, viewcube en een centrale toolbar.
